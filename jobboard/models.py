@@ -3,6 +3,6 @@ from django.utils import timezone
 
 
 class Message(models.Model):
-    author = models.CharField(max_length=200)
-    text = models.TextField()
+    name = models.CharField(max_length=200)
+    jobDesc = models.TextField()
     date = models.DateTimeField(default=timezone.now)

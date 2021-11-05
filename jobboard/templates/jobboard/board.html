@@ -1,26 +1,49 @@
 <html>
 <head>
     <title>Side Hustle</title>
+
     <style type="text/css">
 .author, .eom { color: grey }
 
-    </style>
+body {
+  background-color: #faf2e4;
+  margin: 0 25%;
+  font-family: sans-serif;
+  }
+
+h1 {
+  text-align: center;
+  font-family: serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-bottom: 1px solid #57b1dc;
+  margin-top: 30px;
+}
+</style>
+
 </head>
 <body>
 <h1>Job searching platform for students</h1>
+<select>
+    <option style="display:none;" selected>I'm a</option>
+    <option>Student</option>
+    <option>Recruiter</option>
+</select>
+
 <div class="newfrm">
-    <p class="newmsg">New Job:</p>
+ <p class="newmsg">I'm looking for:</p>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Post">
     </form>
 </div>
+
 <div class="message">
-    <p class="author">
-        Posted by {{message.author}} at {{message.date}}
+    <p class="name">
+        Thank's {{message.name}} for posting, we will be in touch.
     </p>
-    <p>{{ message.text }}</p>
+    <p>{{ message.jobDesc }}</p>
 </div>
-<p class="EOM">(End of messages)</p>
+<p class="EOM"></p>
 </body>
