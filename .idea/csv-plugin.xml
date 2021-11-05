@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\jobboard\views.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\side_hustle\urls.py">
           <value>
             <Attribute>
