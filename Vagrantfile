@@ -36,6 +36,9 @@ end
   "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
   )
 
+  #Code below will make Vagrant run setup.sh for us:
+  config.vm.provision "shell", path: "setup.sh", privileged: false
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
