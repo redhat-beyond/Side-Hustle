@@ -17,7 +17,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='jobs',
             name='name',
-            field=models.ForeignKey(default=django.utils.timezone.now, on_delete=django.db.models.deletion.RESTRICT, related_name='jobs_author', to='auth.user'),
+            field=models.ForeignKey(default=django.utils.timezone.now,
+                                    on_delete=django.db.models.deletion.RESTRICT,
+                                    related_name='jobs_author', to='auth.user'),
             preserve_default=False,
         ),
     ]
