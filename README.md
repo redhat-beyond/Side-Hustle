@@ -1,3 +1,5 @@
+![Logo](./static/img/Logo.JPG)
+
 # Side-Hustle
 
 <div id="top"></div>
@@ -51,7 +53,9 @@ major frameworks/libraries used to bootstrap our project :
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+# ERD
 
+![ERD](./static/img/ERD.png)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -86,7 +90,9 @@ Distributed under the MIT License.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+# The Team
 
+![Team](./static/img/Team.JPG)
 
 <!-- CONTACT -->
 ## Contact
