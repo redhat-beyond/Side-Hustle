@@ -19,6 +19,9 @@ class Role(models.TextChoices):
 class User(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    email = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     gender = models.CharField(
         max_length=1,
         choices=Gender.choices,
@@ -33,9 +36,10 @@ class User(models.Model):
         blank=True,
         null=True
     )
+    password = models.CharField(max_length=100)
 
     @staticmethod
-    def create_user(username, email, password, first_name, last_name, role, team):
+    def create_user(username, email, password, first_name, last_name, role, gender):
         django_user = DjangoUser.objects.create_user(username=username,
                                                      email=email,
                                                      password=password,
@@ -43,7 +47,7 @@ class User(models.Model):
                                                      last_name=last_name)
         user = User(user=django_user,
                     role=role,
-                    team=team)
+                    gender=gender)
         user.save()
         return user
 

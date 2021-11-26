@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 @pytest.fixture
 def new_job_generator():
     job = Job.create_job(publisher=User.objects.create_user('test', 't@test.com', 'test'),
-                          title='CS', description='This message needs to cut before this ends', location='TLV',
-                          job_type='1', company_name='WIX', company_description='Web',
-                          post_until='1994-12-23', is_active=True)
+                         title='CS', description='This message needs to cut before this ends', location='TLV',
+                         job_type='1', company_name='WIX', company_description='Web',
+                         post_until='1994-12-23', is_active=True)
     return job
 
 
