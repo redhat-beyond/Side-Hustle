@@ -25,8 +25,6 @@ def test_empty_database():
 
 @pytest.mark.django_db
 def test_job_str(new_job_generator):
-    print(new_job_generator.__str__)
-    print(new_job_generator.title)
     assert str(new_job_generator) == new_job_generator.title
 
 
