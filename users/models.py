@@ -3,13 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import User as DjangoUser
 
 
-# Enums
-class Gender(models.TextChoices):
-    MALE = 'M', 'Male'
-    FEMALE = 'F', 'Female'
-    UNSPECIFIED = 'U', 'Unspecified'
-
-
 class Role(models.TextChoices):
     HR = 'hr', 'HR'
     STUDENT = 'student', 'Student'
@@ -19,13 +12,6 @@ class Role(models.TextChoices):
 class User(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-    gender = models.CharField(
-        max_length=1,
-        choices=Gender.choices,
-        default=Gender.UNSPECIFIED,
-        blank=True,
-        null=True
-    )
     role = models.CharField(
         max_length=10,
         choices=Role.choices,
