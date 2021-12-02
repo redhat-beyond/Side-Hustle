@@ -97,8 +97,6 @@ Distributed under the MIT License.
 <!-- CONTACT -->
 ## Contact
 
-Maor Shriki - (https://github.com/maorshriki) 
-
 Eden Maor - (https://github.com/edenmaor) 
 
 Assaf Gorovici - (https://github.com/assafg95) 
