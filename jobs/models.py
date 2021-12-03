@@ -49,3 +49,26 @@ class Job(models.Model):
                   post_until=post_until, is_active=is_active, marked_count=marked_count, apply_link=apply_link)
         job.save()
         return job
+
+    def del_job(self):
+        try:
+            self.job.delete()
+        except Job.DoesNotExist:
+            return False
+        return True
+
+    def __str__(self) -> str:
+        return self.title
+
+    # Jobs title to string - return the title of the job
+    def __str__(self) -> str:
+        return self.title    
+
+    # Function to reduce the length of description
+    def snippet_description(self):
+        return self.description[:25] + '...'
+
+    @staticmethod
+    # Function to search job by title
+    def get_jobs_by_title(title):
+        return set(Job.objects.filter(name=title_keyword))
