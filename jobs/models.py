@@ -8,10 +8,12 @@ class JobType(models.TextChoices):
     PART_TIME = '2', 'Part time'
     INTERNSHIP = '3', 'Internship'
 
+
 class Location(models.TextChoices):
     Tel_Aviv = '1', 'Tel Aviv'
     Jerusalem = '2', 'Jerusalem'
     Haifa = '3', 'Haifa'
+
 
 # Jobs Model
 class Job(models.Model):
@@ -57,12 +59,9 @@ class Job(models.Model):
             return False
         return True
 
-    def __str__(self) -> str:
-        return self.title
-
     # Jobs title to string - return the title of the job
     def __str__(self) -> str:
-        return self.title    
+        return self.title
 
     # Function to reduce the length of description
     def snippet_description(self):
@@ -71,4 +70,4 @@ class Job(models.Model):
     @staticmethod
     # Function to search job by title
     def get_jobs_by_title(title):
-        return set(Job.objects.filter(name=title_keyword))
+        return set(Job.objects.filter(name=title))
