@@ -63,6 +63,10 @@ class Job(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    # Jobs title to string - return the title of the job
+    def get_description(self):
+        return self.description
+
     # Function to reduce the length of description
     def snippet_description(self):
         return self.description[:25] + '...'
