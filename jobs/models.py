@@ -12,6 +12,7 @@ class Location(models.TextChoices):
     Tel_Aviv = '1', 'Tel Aviv'
     Jerusalem = '2', 'Jerusalem'
     Haifa = '3', 'Haifa'
+    Unspecified = '4', 'Unspecified'
 
 
 # Jobs Model
@@ -22,7 +23,7 @@ class Job(models.Model):
         max_length=15,
         choices=Location.choices,
         default=Location.Tel_Aviv,
-        blank=True, null=True
+        null=True
     )
     job_type = models.CharField(
         max_length=15,
@@ -46,22 +47,15 @@ class Job(models.Model):
         job.save()
         return job
 
-    def del_job(self):
-        try:
-            self.job.delete()
-        except Job.DoesNotExist:
-            return False
-        return True
-
     # Function to reduce the length of description
     def snippet_description(self):
-        return self.description[:25] + '...'
+        snippedDes = self.description[:25] + '...'
+        return snippedDes
 
     # Jobs title to string - return the title of the job
     def __str__(self) -> str:
         return self.title
 
-    @staticmethod
-    # Function to search job by title
-    def get_jobs_by_title(title):
-        return set(Job.objects.filter(name=title))
+    # Jobs title to string - return the title of the job
+    def get_description(self) -> str:
+        return self.description
