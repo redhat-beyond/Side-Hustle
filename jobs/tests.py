@@ -1,17 +1,30 @@
 import pytest
-from jobs.models import Job, JobType
+from jobs.models import Job, JobType, Location
 
 
 @pytest.fixture
-def create_job_1():
-    job = Job.create_job(title='CS', description='This message needs to cut before this ends', location='TLV',
-                         job_type=JobType.FULL_TIME, company_name='WIX', company_description='Web',
-                         post_until='1994-12-23', is_active=True)
+def job_1():
+    job = Job.create_job(title='Software Engineer', description='Full time software engineer at Wix: Front end',
+                         location=Location.Tel_Aviv,
+                         job_type=JobType.FULL_TIME, company_name='WIX',
+                         post_until='2022-12-23', is_active=True, marked_count=0,
+                         apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/342602")
+    return job
+
+
+@pytest.fixture
+def job_2():
+    job = Job.create_job(title='Software Engineer', description='Part time software engineer at Wix: Back end',
+                         location=Location.Tel_Aviv,
+                         job_type=JobType.PART_TIME, company_name='WIX',
+                         post_until='2022-12-23', is_active=True, marked_count=0,
+                         apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/230603")
     return job
 
 
 @pytest.mark.django_db
-def test_job_create(create_job_1):
+def test_job_create(job_1):
+    assert isinstance(job_1, Job)
     assert Job.objects.count() == 1
 
 
@@ -22,10 +35,24 @@ def test_empty_database():
 
 
 @pytest.mark.django_db
-def test_job_str(create_job_1):
-    assert str(create_job_1) == create_job_1.title
+def test_job_str(job_1):
+    assert str(job_1) == job_1.title
 
 
 @pytest.mark.django_db
-def test_job_snippet_description(create_job_1):
-    assert len(Job.snippet_description(create_job_1)) <= 28
+def test_job_des_str(job_1):
+    assert Job.get_description(job_1) == job_1.description
+
+
+@pytest.mark.django_db
+def test_job_snippet_description(job_1):
+    job_des = Job.snippet_description(job_1)
+    assert len(job_des) <= 28
+    assert job_des.endswith("...")
+
+
+@pytest.mark.django_db
+def test_del_job(job_1):
+    jobId = job_1.id
+    job_1.delete()
+    assert not Job.objects.filter(id=jobId).exists()
