@@ -50,12 +50,12 @@ def test_user_name(user_1):
 
 
 @pytest.mark.django_db
-def test_check_is_student(create_user_student, create_user_HR):
-    assert create_user_student.is_student() is True
-    assert create_user_HR.is_student() is False
+def test_check_is_student(user_student, user_HR):
+    assert user_student.is_student() is True
+    assert user_HR.is_student() is False
 
 
 @pytest.mark.django_db
-def test_check_is_HR(create_user_student, create_user_HR):
-    assert create_user_student.is_HR() is False
-    assert create_user_HR.is_HR() is True
+def test_check_is_HR(user_student, user_HR):
+    assert user_student.is_HR() is False
+    assert user_HR.is_HR() is True
