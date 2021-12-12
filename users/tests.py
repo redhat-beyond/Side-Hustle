@@ -2,54 +2,6 @@ import pytest
 from users.models import User
 
 
-@pytest.fixture
-def user_1() -> User:
-    user1 = User.objects.create_user(username='user1',
-                                     first_name='first_name',
-                                     last_name='last_name',
-                                     email='email',
-                                     password='password1')
-    user1.role = 'Student'
-    user1.save()
-    return user1
-
-
-@pytest.fixture
-def user_2() -> User:
-    user2 = User.objects.create_user(username='user2',
-                                     first_name='first_name',
-                                     last_name='last_name',
-                                     email='email',
-                                     password='password2')
-    user2.role = 'Student'
-    user2.save()
-    return user2
-
-
-@pytest.fixture
-def create_user_student() -> User:
-    user_student = User.objects.create_user(username='user_student',
-                                            first_name='first_name',
-                                            last_name='last_name',
-                                            email='email',
-                                            password='password1')
-    user_student.role = 'Student'
-    user_student.save()
-    return user_student
-
-
-@pytest.fixture
-def create_user_HR() -> User:
-    user_HR = User.objects.create_user(username='user_HR',
-                                       first_name='first_name',
-                                       last_name='last_name',
-                                       email='email',
-                                       password='password1')
-    user_HR.role = 'HR'
-    user_HR.save()
-    return user_HR
-
-
 @pytest.mark.django_db
 def test_create_user(user_1):
     assert isinstance(user_1, User)
@@ -98,12 +50,12 @@ def test_user_name(user_1):
 
 
 @pytest.mark.django_db
-def test_check_is_student(create_user_student, create_user_HR):
-    assert create_user_student.is_student() is True
-    assert create_user_HR.is_student() is False
+def test_check_is_student(user_student, user_HR):
+    assert user_student.is_student() is True
+    assert user_HR.is_student() is False
 
 
 @pytest.mark.django_db
-def test_check_is_HR(create_user_student, create_user_HR):
-    assert create_user_student.is_HR() is False
-    assert create_user_HR.is_HR() is True
+def test_check_is_HR(user_student, user_HR):
+    assert user_student.is_HR() is False
+    assert user_HR.is_HR() is True

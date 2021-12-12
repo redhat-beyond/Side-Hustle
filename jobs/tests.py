@@ -1,25 +1,5 @@
 import pytest
-from jobs.models import Job, JobType, Location
-
-
-@pytest.fixture
-def job_1():
-    job = Job.create_job(title='Software Engineer', description='Full time software engineer at Wix: Front end',
-                         location=Location.Tel_Aviv,
-                         job_type=JobType.FULL_TIME, company_name='WIX',
-                         post_until='2022-12-23', is_active=True, marked_count=0,
-                         apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/342602")
-    return job
-
-
-@pytest.fixture
-def job_2():
-    job = Job.create_job(title='Software Engineer', description='Part time software engineer at Wix: Back end',
-                         location=Location.Tel_Aviv,
-                         job_type=JobType.PART_TIME, company_name='WIX',
-                         post_until='2022-12-23', is_active=True, marked_count=0,
-                         apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/230603")
-    return job
+from jobs.models import Job
 
 
 @pytest.mark.django_db
