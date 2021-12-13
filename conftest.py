@@ -35,7 +35,7 @@ def job_1():
 def job_2():
     job = Job.create_job(title='Elecrtical Engineer',
                          description='Part time software engineer at Wix: Back end',
-                         location=DEFAULT_JOB_LOCATION,
+                         location=Location.Haifa,
                          job_type=JobType.PART_TIME,
                          company_name=DEFAULT_COMPANY_NAME,
                          post_until='2022-12-23',

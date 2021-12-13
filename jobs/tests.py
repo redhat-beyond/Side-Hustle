@@ -90,3 +90,24 @@ class TestJob:
         assert not job1_type == job2_type
         assert set(out) == set([job_1])
         assert not set(out) == set([job_1, job_2])
+
+    def test_get_jobs_by_location(cls, job_1, job_2):
+        job1_location = Job.get_job_location(job_1)
+        job2_location = Job.get_job_location(job_2)
+        out = Job.get_by_location(Location.Tel_Aviv)
+        assert job1_location == Location.Tel_Aviv
+        assert isinstance(out, QuerySet)
+        assert all(isinstance(j, Job) for j in out)
+        assert not job1_location == job2_location
+        assert set(out) == set([job_1])
+        assert not set(out) == set([job_1, job_2])
+
+    def test_get_jobs_by_title(cls, job_1, job_2):
+        job1_title = str(job_1)
+        job2_title = str(job_2)
+        out = Job.get_by_title(job1_title)
+        assert isinstance(out, QuerySet)
+        assert all(isinstance(j, Job) for j in out)
+        assert not job1_title == job2_title
+        assert set(out) == set([job_1])
+        assert not set(out) == set([job_1, job_2])

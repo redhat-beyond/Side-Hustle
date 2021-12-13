@@ -64,6 +64,10 @@ class Job(models.Model):
     def get_job_type(self) -> JobType:
         return self.job_type
 
+    # Jobs location to Location - return the location of the job
+    def get_job_location(self) -> Location:
+        return self.location
+
     # Return all Job objects
     @classmethod
     def get_all_jobs(cls):
@@ -73,3 +77,13 @@ class Job(models.Model):
     @classmethod
     def get_by_type(cls, type):
         return cls.objects.filter(job_type=type)
+
+    # Return all Job object by Location
+    @classmethod
+    def get_by_location(cls, location):
+        return cls.objects.filter(job_type=location)
+
+    # Return all Job object by JobType
+    @classmethod
+    def get_by_title(cls, title_keyword):
+        return cls.objects.filter(title=title_keyword)
