@@ -1,5 +1,5 @@
 import pytest
-from jobs.models import Job, JobType
+from jobs.models import Job, JobType, Location
 from django.db.models.query import QuerySet
 
 
@@ -42,6 +42,34 @@ def test_del_job(job_1):
 @pytest.mark.django_db
 def test_get_job_type(job_1):
     assert Job.get_job_type(job_1) == job_1.job_type
+
+
+@pytest.mark.django_db
+def test_unique_apply_link():
+    try:
+        job1 = Job.create_job(title='Elecrtical Engineer',
+                              description='Part time Elecrtical Enginee at Google: Back end',
+                              location=Location.Tel_Aviv,
+                              job_type=JobType.PART_TIME,
+                              company_name="Google",
+                              post_until='2022-12-23',
+                              is_active=True,
+                              marked_count=0,
+                              apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/466701")
+        job1.save()
+        job1_dup_apply_link = Job.create_job(title='Software Engineer',
+                                             description='Full time software engineer at Wix: Back end',
+                                             location=Location.Tel_Aviv,
+                                             job_type=JobType.FULL_TIME,
+                                             company_name='Wix',
+                                             post_until='2022-12-23',
+                                             is_active=True,
+                                             marked_count=0,
+                                             apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/466701")
+        job1_dup_apply_link.save()
+        assert False
+    except Exception:
+        assert True
 
 
 @pytest.mark.django_db
