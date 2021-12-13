@@ -20,12 +20,43 @@ body{
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            Bootstrap
-          </a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <div class="container">
+          <a class="navbar-brand" href="#">Side Hustle</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Job Search</a>
+              </li>
+            </ul>
+            <!-- {% if request.user.is_authenticated %}
+              <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+            {% endif %} -->
+
+            {% if not request.user.is_authenticated %}
+             <form class="navbar-form navbar-right" method=Post action=''>{% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Password" />
+                </div>
+                <button type="submit" class="btn btn=btn-default">Login</button>
+             </form>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+            {% include 'search/search-form.html' %}
+            {% endif %}
+    
+          
+          </div>
         </div>
       </nav>
 <div class="container" style="margin-top: 5%;">
