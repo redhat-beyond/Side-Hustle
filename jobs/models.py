@@ -83,7 +83,15 @@ class Job(models.Model):
     def get_by_location(cls, location):
         return cls.objects.filter(job_type=location)
 
-    # Return all Job object by JobType
+    # Return all Job object by title
     @classmethod
     def get_by_title(cls, title_keyword):
         return cls.objects.filter(title=title_keyword)
+
+    # Return all jobs by the title, Location, JobType
+    @classmethod
+    def get_by_three_fields(cls, title_keyword, location, type):
+        title_set = cls.objects.filter(title=title_keyword)
+        location_set = cls.objects.filter(job_type=location)
+        type_set = cls.objects.filter(job_type=type)
+        return title_set & location_set & type_set
