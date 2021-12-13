@@ -33,15 +33,15 @@ def job_1():
 
 @pytest.fixture
 def job_2():
-    job = Job.create_job(title='Software Engineer',
+    job = Job.create_job(title='Elecrtical Engineer',
                          description='Part time software engineer at Wix: Back end',
                          location=DEFAULT_JOB_LOCATION,
-                         job_type=DEFAULT_JOB_TYPE,
+                         job_type=JobType.PART_TIME,
                          company_name=DEFAULT_COMPANY_NAME,
                          post_until='2022-12-23',
                          is_active=True,
                          marked_count=0,
-                         apply_link=DEFAULT_APPLY_LINK)
+                         apply_link="https://www.wix.com/jobs/locations/tel-aviv/positions/466701")
     return job
 
 

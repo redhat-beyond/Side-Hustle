@@ -56,6 +56,20 @@ class Job(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    # Jobs title to string - return the title of the job
+    # Jobs description to string - return the description of the job
     def get_description(self) -> str:
         return self.description
+
+    # Jobs job_type to JobType - return the job_type of the job
+    def get_job_type(self) -> JobType:
+        return self.job_type
+
+    # Return all Job objects
+    @classmethod
+    def get_all_jobs(cls):
+        return cls.objects.all()
+
+    # Return all Job object by JobType
+    @classmethod
+    def get_by_type(cls, type):
+        return cls.objects.filter(job_type=type)
