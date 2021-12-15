@@ -18,31 +18,31 @@ def create_email(username):
 
 
 @pytest.fixture
-def job_1():
-    job = Job.create_job(title='Software Engineer',
-                         description='Full time software engineer at Wix: Front end',
-                         location=DEFAULT_JOB_LOCATION,
-                         job_type=JobType.FULL_TIME,
-                         company_name=DEFAULT_COMPANY_NAME,
-                         post_until='2022-12-23',
-                         is_active=True,
-                         marked_count=0,
-                         apply_link=DEFAULT_APPLY_LINK)
-    return job
+def user_HR() -> User:
+    username = 'user_HR'
+    email = create_email(username)
+    user_HR = User.objects.create_user(username=username,
+                                       first_name=DEFAULT_FIRST_NAME,
+                                       last_name=DEFAULT_LAST_NAME,
+                                       email=email,
+                                       password=DEFAULT_VALID_PASSWORD)
+    user_HR.role = 'HR'
+    user_HR.save()
+    return user_HR
 
 
 @pytest.fixture
-def job_2():
-    job = Job.create_job(title='Software Engineer',
-                         description='Part time software engineer at Wix: Back end',
-                         location=DEFAULT_JOB_LOCATION,
-                         job_type=DEFAULT_JOB_TYPE,
-                         company_name=DEFAULT_COMPANY_NAME,
-                         post_until='2022-12-23',
-                         is_active=True,
-                         marked_count=0,
-                         apply_link=DEFAULT_APPLY_LINK)
-    return job
+def user_student() -> User:
+    username = 'user_student'
+    email = create_email(username)
+    user_student = User.objects.create_user(username=username,
+                                            first_name=DEFAULT_FIRST_NAME,
+                                            last_name=DEFAULT_LAST_NAME,
+                                            email=email,
+                                            password=DEFAULT_VALID_PASSWORD)
+    user_student.role = DEFAULT_USER_ROLE
+    user_student.save()
+    return user_student
 
 
 @pytest.fixture
@@ -74,28 +74,28 @@ def user_2() -> User:
 
 
 @pytest.fixture
-def user_student() -> User:
-    username = 'user_student'
-    email = create_email(username)
-    user_student = User.objects.create_user(username=username,
-                                            first_name=DEFAULT_FIRST_NAME,
-                                            last_name=DEFAULT_LAST_NAME,
-                                            email=email,
-                                            password=DEFAULT_VALID_PASSWORD)
-    user_student.role = DEFAULT_USER_ROLE
-    user_student.save()
-    return user_student
+def job_1(user_HR):
+    job = Job.create_job(publisher=user_HR, title='Software Engineer',
+                         description='Full time software engineer at Wix: Front end',
+                         location=DEFAULT_JOB_LOCATION,
+                         job_type=JobType.FULL_TIME,
+                         company_name=DEFAULT_COMPANY_NAME,
+                         post_until='2022-12-23',
+                         is_active=True,
+                         marked_count=0,
+                         apply_link=DEFAULT_APPLY_LINK)
+    return job
 
 
 @pytest.fixture
-def user_HR() -> User:
-    username = 'user_HR'
-    email = create_email(username)
-    user_HR = User.objects.create_user(username=username,
-                                       first_name=DEFAULT_FIRST_NAME,
-                                       last_name=DEFAULT_LAST_NAME,
-                                       email=email,
-                                       password=DEFAULT_VALID_PASSWORD)
-    user_HR.role = 'HR'
-    user_HR.save()
-    return user_HR
+def job_2(user_HR):
+    job = Job.create_job(publisher=user_HR, title='Software Engineer',
+                         description='Part time software engineer at Wix: Back end',
+                         location=DEFAULT_JOB_LOCATION,
+                         job_type=DEFAULT_JOB_TYPE,
+                         company_name=DEFAULT_COMPANY_NAME,
+                         post_until='2022-12-23',
+                         is_active=True,
+                         marked_count=0,
+                         apply_link=DEFAULT_APPLY_LINK)
+    return job

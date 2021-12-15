@@ -3,8 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Role(models.TextChoices):
-    HR = 'hr', 'HR'
-    STUDENT = 'student', 'Student'
+    HR = 'HR'
+    STUDENT = 'Student'
 
 
 class User(AbstractUser):
@@ -20,7 +20,7 @@ class User(AbstractUser):
         return self.first_name + ' ' + self.last_name
 
     def is_student(self) -> bool:
-        return self.role == 'Student' or self.role == 'student'
+        return self.role == 'Student'
 
     def is_HR(self) -> bool:
-        return self.role == 'HR' or self.role == 'hr'
+        return self.role == 'HR'
