@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} SideHustle - Add Job {% endblock %}
+
+{% block content %}
+
+<h1>Add Job</h1>
+<hr>
+<br/>
+
+{% if user.is_authenticated %}
+{% if user.role == 'HR' %}
+
+<div class="input-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary"> Post </button>
+    </form>
+</div>
+<br/>
+
+{% endif %}
+
+<script>
+
+    let name = "{{ user.id }}";
+    document.getElementById("currentUser").value = name;
+
+</script>
+
+{% endif %}
+
+<a href="{% url 'jobs' %}" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}
