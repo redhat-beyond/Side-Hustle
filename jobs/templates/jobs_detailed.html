@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} SideHustle - {{ job.company_name }} {% endblock %}
+
+{% block content %}
+
+<h1>{{ job.title }}</h1>
+<h3>By: {{ job.company_name }}</h3>
+<small>{{ job.publisher.first_name }} {{ job.publisher.last_name }}</small>
+{% if user.is_authenticated %}
+    {% if user.id == job.publisher.id %}
+    <small><a href="{% url 'jobs_edit' job.pk %}"> (Edit) </a></small><br/>
+    <small><a href="{% url 'jobs_delete' job.pk %}"> (Delete) </a></small>
+    {% endif %}
+{% endif %}
+<hr>
+<br/>
+{{job.description}}<br/>
+Location: {{ job.location }}<br/>
+Job Type: {{ job.job_type }}<br/>
+Company Name: {{ job.company_name }}<br/>
+Post Until: {{ job.post_until }}<br/>
+Is Active: {{ job.is_active }}<br/>
+Apply Link: <a href="{{ job.apply_link }}" target="_blank"> {{ job.apply_link }} </a><br/>
+<br/>
+<a href="{% url 'jobs' %}" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}

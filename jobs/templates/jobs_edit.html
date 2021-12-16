@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} SideHustle - Edit Job {% endblock %}
+
+{% block content %}
+
+<h1>Edit Job</h1>
+<hr>
+<br/>
+
+{% if user.is_authenticated %}
+    {% if user.id == job.publisher.id %}
+
+    <div class="input-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary"> Update </button>
+        </form>
+    </div>
+    {% endif %}
+{% endif %}
+
+<br/>
+<a href="{% url 'jobs' %}" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}

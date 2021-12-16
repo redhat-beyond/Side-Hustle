@@ -1,25 +1,16 @@
-"""side_hustle URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
-from .views import login, home
-
+from django.contrib.auth.urls import path
+from django.urls import include
+from jobs import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login),
-    path('', home, name='home')
+    path('', views.JobView.as_view(), name="jobs"),
+    path('jobs', views.JobView.as_view(), name="jobs"),
+    path('jobs/<int:pk>', views.JobsDetailedView.as_view(), name="jobs_detailed"),
+    path('jobs/add/', views.AddJobsView.as_view(), name="jobs_add"),
+    path('jobs/edit/<int:pk>', views.UpdateJobsView.as_view(), name="jobs_edit"),
+    path('jobs/delete/<int:pk>', views.DeleteJobsView.as_view(), name="jobs_delete"),
+    path('users/', include('django.contrib.auth.urls')),
+    path('users/', include('users.urls'))
 ]

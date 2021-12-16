@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} SideHustle - Register {% endblock %}
+
+{% block content %}
+
+<h1>Register</h1>
+<hr>
+<br/>
+
+<div class="input-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary"> Register </button>
+    </form>
+</div>
+
+<br/>
+<a href="{% url 'jobs' %}" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}
