@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <center>
+    <h1>Jobs Search Results</h1>
+    </center>
+
+    <ul>
+        {% for job in object_list %}
+            <li>Job Title: <a href="{% url 'jobs_detailed' job.pk %}"> {{ job.title }} </a><br/>
+                Company Name: {{ job.company_name }}<br/>
+                Location: {{ job.location }}<br/>
+                Job Type: {{ job.job_type }}<br/>
+                Post Until: {{ job.post_until }}<br/>
+                Is Active: {{ job.is_active }}<br/>
+                <br/>
+            </li>
+        {% endfor %}
+        </ul>
+
+<a href="{% url 'jobs' %}" class="btn btn-secondary">Back</a>
+{% endblock %}

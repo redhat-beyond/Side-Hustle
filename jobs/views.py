@@ -3,6 +3,7 @@ from jobs.models import Job
 from django.urls import reverse_lazy
 from .forms import JobForm
 from django.shortcuts import redirect
+from django.db.models import Q
 
 
 class JobView(ListView):
@@ -90,3 +91,13 @@ class DeleteJobsView(DeleteView):
 
         # Render the template if they are
         return super(DeleteJobsView, self).dispatch(*args, **kwargs)
+
+
+class SearchResultsView(ListView):
+    model = Job
+    template_name = 'jobs_search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Job.objects.filter(Q(title__icontains=query))
+        return object_list
