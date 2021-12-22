@@ -11,53 +11,51 @@
     <title>{% block title %} SideHustle {% endblock %}</title>
   </head>
   <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">SideHustle</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'jobs' %}">Jobs</a>
-        </li>
-
-        {% if user.is_authenticated %}
-        {% if user.role == 'HR' %}
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'jobs_add' %}">Add Job</a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-        </li>
-
-        {% else %}
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
-        </li>
-
-        {% endif %}
-
-
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
-        </li>
-
-
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">SideHustle</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <div class="nav-link active text-danger">Hi {{ user.first_name }} </div> 
+              </li>  
+  
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'jobs' %}">All-Jobs</a>
+              </li>  
+              {% if user.role == 'HR' %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'jobs_add' %}">Add Job</a>
+                </li>
+              {% endif %}
+              {% if user.role == 'Student' %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+              </li>
+              {% endif %}
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
 
   <br/>
   <div class="container">
