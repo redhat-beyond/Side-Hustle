@@ -17,6 +17,6 @@ class JobForm(forms.ModelForm):
             'location': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'post_until': forms.SelectDateWidget(attrs={'class': 'form-control'}),
-            'is_active': forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'}),
+            'is_active': forms. CheckboxInput(attrs={'class': 'form-check-input'}),
             'apply_link': forms.URLInput(attrs={'class': 'form-control'})
         }

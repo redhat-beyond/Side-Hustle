@@ -45,8 +45,8 @@ class AddJobsView(CreateView):
 
 class UpdateJobsView(UpdateView):
     model = Job
+    form_class = JobForm
     template_name = 'jobs_edit.html'
-    fields = ('company_name', 'title', 'job_type', 'location', 'description', 'post_until', 'is_active', 'apply_link')
 
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_authenticated:
