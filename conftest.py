@@ -61,6 +61,18 @@ def invalid_passwords():
 
 
 @pytest.fixture
+def invalid_dates():
+    invalid_dates = [
+        '',
+        '23.01.1997',
+        '23.01.1997',
+        '1997-13-23',
+        '1997-12-32'
+    ]
+    return invalid_dates
+
+
+@pytest.fixture
 def user_HR() -> User:
     username = 'user_HR'
     email = create_email(username)
@@ -199,3 +211,24 @@ def job_2(user_HR):
                          marked_count=0,
                          apply_link=DEFAULT_APPLY_LINK)
     return job
+
+
+@pytest.fixture
+def valid_job_data(user_HR):
+    job_data = {'publisher': user_HR,
+                'company_name': DEFAULT_COMPANY_NAME,
+                'title': 'Software Engineer',
+                'location': DEFAULT_JOB_LOCATION,
+                'description': 'Part time software engineer at Wix: Back end',
+                'post_until': '2022-12-23',
+                'is_active': True,
+                'apply_link': DEFAULT_APPLY_LINK}
+    return job_data
+
+
+@pytest.fixture
+def job_data_with_invalid_posts_time(valid_job_data, invalid_dates):
+    invalid_jobs = create_invalid_objects_data(valid_objects_data=valid_job_data,
+                                               invalid_field='post_until',
+                                               invalid_values=invalid_dates)
+    return invalid_jobs
