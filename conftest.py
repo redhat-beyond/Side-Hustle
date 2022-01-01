@@ -74,16 +74,30 @@ def user_2() -> User:
 
 
 @pytest.fixture
-def job_1(user_HR):
-    job = Job.create_job(publisher=user_HR, title='Software Engineer',
-                         description='Full time software engineer at Wix: Front end',
-                         location=DEFAULT_JOB_LOCATION,
-                         job_type=JobType.FULL_TIME,
-                         company_name=DEFAULT_COMPANY_NAME,
-                         post_until='2022-12-23',
-                         is_active=True,
+def job_1_data(user_HR):
+    job_data = {'publisher': user_HR,
+                'company_name': 'Full time software engineer at Wix: Front end',
+                'title': 'Software Engineer',
+                'location': DEFAULT_JOB_LOCATION,
+                'job_type': JobType.FULL_TIME,
+                'description': DEFAULT_COMPANY_NAME,
+                'post_until': '2022-12-23',
+                'is_active': True,
+                'apply_link': DEFAULT_APPLY_LINK}
+    return job_data
+
+
+@pytest.fixture
+def job_1(job_1_data):
+    job = Job.create_job(publisher=job_1_data['publisher'], title=job_1_data['title'],
+                         description=job_1_data['description'],
+                         location=job_1_data['location'],
+                         job_type=job_1_data['job_type'],
+                         company_name=job_1_data['company_name'],
+                         post_until=job_1_data['post_until'],
+                         is_active=job_1_data['is_active'],
                          marked_count=0,
-                         apply_link=DEFAULT_APPLY_LINK)
+                         apply_link=job_1_data['apply_link'])
     return job
 
 
@@ -99,3 +113,16 @@ def job_2(user_HR):
                          marked_count=0,
                          apply_link=DEFAULT_APPLY_LINK)
     return job
+
+
+@pytest.fixture
+def valid_job_data(user_HR):
+    job_data = {'publisher': user_HR,
+                'company_name': DEFAULT_COMPANY_NAME,
+                'title': 'Software Engineer',
+                'location': DEFAULT_JOB_LOCATION,
+                'description': 'Part time software engineer at Wix: Back end',
+                'post_until': '2022-12-23',
+                'is_active': True,
+                'apply_link': DEFAULT_APPLY_LINK}
+    return job_data
