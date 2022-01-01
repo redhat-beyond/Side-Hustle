@@ -1,5 +1,6 @@
 import pytest
 from users.models import User
+from users.forms import RegisterForm
 
 
 @pytest.mark.django_db
@@ -59,3 +60,60 @@ def test_check_is_student(user_student, user_HR):
 def test_check_is_HR(user_student, user_HR):
     assert user_student.is_HR() is False
     assert user_HR.is_HR() is True
+
+
+@pytest.mark.django_db
+def test_signup_form_loads_correctly(client, valid_user_data):
+    response = client.get('/users/register/')
+    assert response.status_code == 200
+
+    form = response.context["form"]
+    assert isinstance(form, RegisterForm)
+
+    form_initial_data = response.context["form"].initial
+    assert all(form_initial_data[key] == valid_user_data[key] for key in form_initial_data)
+
+
+@pytest.mark.django_db
+def test_valid_student_sign_up(valid_student_data):
+    form = RegisterForm(data=valid_student_data)
+    assert form.is_valid()
+
+    student_user = form.save()
+    assert User.objects.filter(pk=student_user.id).exists()
+
+
+@pytest.mark.django_db
+def test_valid_hr_sign_up(valid_hr_data):
+    form = RegisterForm(data=valid_hr_data)
+    assert form.is_valid()
+
+    hr_user = form.save()
+    assert User.objects.filter(pk=hr_user.id).exists()
+
+
+@pytest.mark.django_db
+def test_sign_up_with_invalid_passwords(user_data_with_invalid_passwords):
+    for user_data_with_invalid_password in user_data_with_invalid_passwords:
+        form = RegisterForm(data=user_data_with_invalid_password)
+        assert not form.is_valid()
+
+
+@pytest.mark.django_db
+def test_sign_up_with_non_matching_second_password(user_data_with_non_matching_password):
+    form = RegisterForm(data=user_data_with_non_matching_password)
+    assert not form.is_valid()
+
+
+@pytest.mark.django_db
+def test_sign_up_with_invalid_email(user_data_with_invalid_emails):
+    for user_data_with_invalid_email in user_data_with_invalid_emails:
+        form = RegisterForm(data=user_data_with_invalid_email)
+        assert not form.is_valid()
+
+
+@pytest.mark.django_db
+def test_sign_up_with_invalid_username(user_data_with_invalid_usernames):
+    for user_data_with_invalid_username in user_data_with_invalid_usernames:
+        form = RegisterForm(data=user_data_with_invalid_username)
+        assert not form.is_valid()
